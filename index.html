@@ -2,34 +2,43 @@
 <html>
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map-canvas { height: 80% }
-    </style>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJd9s0q7Ac8IGZ7AXzYT3dpfplXxgEVpA&sensor=true">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
     
     
-
+    	<!-- Google Maps API V3-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJd9s0q7Ac8IGZ7AXzYT3dpfplXxgEVpA&sensor=true"></script>
     
+    	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="script/style.css">
+   
+		<!-- jQuery-->
+	<script src="https://code.jquery.com/jquery.js"></script>  
+ 
+    	<!-- jQueryMobile-->
+    <link rel="stylesheet" href="script/jqMobile/jquery.mobile-1.4.2.min.css">
+    <script src="script/jqMobile/jquery.mobile-1.4.2.min.js"></script>
+	
+      
   </head>
+  
+  <body onload="initialize()">
+  	
+  	<!-- Load the Map -->
+    <script src="script/initialize.js" type="text/javascript"></script>
+  
+	<div data-role="page" id="homescreen">
+	
+		<h1>BENCH PRESS</h1>
+	  	<div class="row">
+		  	<div class="col-md-4">
+		    	<button type="submit"> Bench Press! </button>
+		    	<button type="submit" onclick="findMe()"> Print coords! </button>
+		  	</div>
+		  	<div id="testing"></div>
+	  	</div>
+	  	<div id="map-canvas"/>
+	</div>
 
-  <body>
-  <h1>MY CHANGES</h1>
-    <div id="map-canvas"/>
-    <button type="submit"> </button>
+
   </body>
 </html>
