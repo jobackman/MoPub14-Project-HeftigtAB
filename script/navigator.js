@@ -8,10 +8,6 @@ function rotate() {
 		});
 }
 
-
-
-
-
 function getDistance(){
 	var helper = new CBHelper("benchpress", "37ff338f77e39490bad736e64bdd5839", new GenericHelper());
 	helper.setPassword(hex_md5("mopub_14"));

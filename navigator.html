@@ -22,7 +22,9 @@
       
   </head>
   
-  <body>
+  <body onload="initialize()">
+  
+  <script src="script/initialize.js"> </script>
   
   <!-- MALL FÖR KOMPASS -->
   	<div data-role="page" id="page-x">
@@ -33,10 +35,8 @@
 		</div><!-- header -->
 	  	
 	  	<div data-role="content">
-	  		<div class="center">
-			  <img src="img/arrow.png" id="arrow">
-			  <h1 id="distance">Distance: 13m </h1>
-  			</div>	  		
+	  		<img src="img/arrow.png" id="arrow">
+			  <h1 id="distance" onclick="getDistance()">Distance: 13m </h1>	
   		</div><!-- Content -->
   	
   	</div><!-- Page x -->
