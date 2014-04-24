@@ -13,7 +13,7 @@
 
     
     	<!-- Google Maps API V3-->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJd9s0q7Ac8IGZ7AXzYT3dpfplXxgEVpA&sensor=true"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJd9s0q7Ac8IGZ7AXzYT3dpfplXxgEVpA&sensor=true&libraries=geometry"></script>
     
     	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
@@ -32,6 +32,7 @@
   <body onload="initialize()">
   	
   	<!-- Load the Map -->
+	<script src="script/navigator.js" type="text/javascript"></script>
     <script src="script/initialize.js" type="text/javascript"></script>
   
 	<div data-role="page" id="homescreen">
@@ -39,8 +40,8 @@
 		<h1>B€NCH PR€$$</h1>
 	  	<div class="row">
 		  	<div class="col-md-4">
-		    	<button type="submit"> Bench Press! </button>
-		    	<button type="submit" onclick="findMe()"> Print coords! </button>
+		    	<button type="submit" onclick="getDistance()"> Bench Press! </button>
+		    	<button type="submit" onclick="addBench()"> Add bench!</button>
 		  	</div>
 		  	<div id="testing"></div>
 	  	</div>

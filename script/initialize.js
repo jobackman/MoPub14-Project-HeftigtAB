@@ -5,9 +5,14 @@ function initialize() {
 	};
 	var map = new google.maps.Map(document.getElementById("map-canvas"),
 	    mapOptions);
+	
+
 }
 
-function findMe(){
+
+
+
+function addBench(){
 
   if (navigator.geolocation){
   	//console.log(navigator.geolocation);
@@ -18,51 +23,50 @@ function findMe(){
   	}
   
   	function showPosition(position){
-  		//console.log(position);
-  		//$("#testing").html(position.coords.latitude);
+ 
   		var helper = new CBHelper("benchpress", "37ff338f77e39490bad736e64bdd5839", new GenericHelper());
 		helper.setPassword(hex_md5("mopub_14"));
 		
 		var read_latitude = position.coords.latitude.toString();
 		var check_latitude = read_latitude.split(".");
-		var check_latitude_decimals = check_latitude[1].substring(0,3);
+		var check_latitude_decimals = check_latitude[1].substring(0,4);
 		var check_lat = check_latitude[0]+"."+check_latitude_decimals;
 		
 		var read_longitude = position.coords.longitude.toString();
 		var check_longitude = read_longitude.split(".");
-		var check_longitude_decimals = check_longitude[1].substring(0,3);
+		var check_longitude_decimals = check_longitude[1].substring(0,4);
 		var check_lng = check_longitude[0]+"."+check_longitude_decimals;
 		//alert(check_lng); 
 		
-		var dataObject1 = {
+		var dataObject = {
 			"lat_coords" : position.coords.latitude,
 			"lng_coords" : position.coords.longitude,
 			"lat_check_coords" : check_lat,
 			"lng_check_coords" : check_lng
 		};
-		search(dataObject1);
+		search(dataObject);
 		
 		
 		function search(dataObject){
 			//,"lng_check_coords" : dataObject.lat_check_coords}
 			helper.searchDocuments(
-				
 				//Ska även kunna jämföra longitude
 				{"lat_check_coords" : dataObject.lat_check_coords}, "benches", function(resp){
-					alert(isEmpty(resp.outputData));
+					//console.log(resp.outputData[0].lat_check_coords);
 					if(resp.callStatus && resp.outputData==0){
 						add(dataObject);
+					}else{
+						alert("Finns redan en bank har.");
 					};	
 				}
-				);
+				); 
+				
+				
 				};
 		function add(dataObject){
 			helper.insertDocument("benches", dataObject, null, function(resp) {
-				//alert("klar");
+				alert("Banken finns nu i var databas. Tack sa mycket!");
 			});
-			}; 
-			function isEmpty(str) {
-			    return (!str || 0 === str.length);
-			}      
+			};  
 	}
 };
