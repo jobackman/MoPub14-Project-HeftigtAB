@@ -1,10 +1,10 @@
-function rotate() {
+function rotate(degrees) {
 	$("#arrow").css({ 
-		'-webkit-transform': 'rotate(120deg)',
-		'-moz-transform': 'rotate(120deg)',
-		'-o-transform': 'rotate(120deg)',
-		'-ms-transform': 'rotate(120deg)',
-		'transform': 'rotate(120deg)' 
+		'-webkit-transform': 'rotate('+degrees+'deg)',
+		'-moz-transform': 'rotate('+degrees+'deg)',
+		'-o-transform': 'rotate('+degrees+'deg)',
+		'-ms-transform': 'rotate('+degrees+'deg)',
+		'transform': 'rotate('+degrees+'deg)' 
 		});
 }
 
@@ -45,7 +45,10 @@ function getDistance(){
 			null, "benches", function(resp){
 			for (var i = 0; i < resp.outputData.length; i++){
 				var bench_LatLng = new google.maps.LatLng(resp.outputData[i].lat_coords, resp.outputData[i].lng_coords);
-				console.log(getDistanceBetween(my_LatLng, bench_LatLng));
+				var dist = getDistanceBetween(my_LatLng, bench_LatLng);
+				console.log(dist);
+				$("#distance").html(dist);
+				rotate(dist);
 
 			}}
 		);
