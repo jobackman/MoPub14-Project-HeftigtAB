@@ -1,3 +1,5 @@
+var sortedBenches=[];
+
 function initialize() {
 	var mapOptions = {
 	  center: new google.maps.LatLng(59.346630, 18.072056),
@@ -132,11 +134,20 @@ function getDistance(){
 			for (var i = 0; i < resp.outputData.length; i++){
 				var bench_LatLng = new google.maps.LatLng(resp.outputData[i].lat_coords, resp.outputData[i].lng_coords);
 				var dist = getDistanceBetween(my_LatLng, bench_LatLng);
+				sortedBenches[i]={"distance":dist, "lat_coords":resp.outputData[i].lat_coords,"lng_coords":resp.outputData[i].lng_coords};
+			
+				
 				console.log(dist);
 				$("#distance").html(dist);
 				rotate(dist);
-
-			}}
+				
+			}
+				sortedBenches.sort(function(a, b){
+				    return a.distance - b.distance;
+				});
+				console.log(sortedBenches);
+			
+			}
 		);
 	}	
 }
