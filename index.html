@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    
+
 		<!-- Cloudbase -->
 	<script type="text/javascript" charset="utf-8" src="script/js/CBHelper/md5.js"></script>
 	<script type="text/javascript" charset="utf-8" src="script/js/CBHelper/json.js"></script>
@@ -25,7 +25,8 @@
     	<!-- jQueryMobile-->
     <link rel="stylesheet" href="script/jqMobile/jquery.mobile-1.4.2.min.css">
     <script src="script/jqMobile/jquery.mobile-1.4.2.min.js"></script>
-      
+        
+
   </head>
   
   <body onload="initialize()">
@@ -52,6 +53,20 @@
 	
 		<!-- MALL FÖR KOMPASS -->
   	<div data-role="page" id="page-x">
+		<script>
+
+			 $.mobile.defaultPageTransition = "none";
+			    $.mobile.defaultDialogTransition = "none";
+
+				$('#page-x').on("swipeleft", function() {
+			//	$('#arrow').hide("slide",{direction:"left"},1000);
+			//	$('#arrow').show("slide",{direction:"left"},1000);	
+				newBench();
+				});
+				$('#page-x').on("swiperight", function() {
+				oldBench();
+				});
+			</script>
   		
 	  	<div data-role="header">		
 	  		<h1>Bench Press</h1>
@@ -59,7 +74,7 @@
 		</div><!-- header -->
 	  	
 	  	<div data-role="content">
-	  		<img src="img/arrow.png" id="arrow" onclick="getDistance()">
+	  		<img src="img/arrow.png" id="arrow" onclick="getDistance()" draggable="false">
 			<h1>Distance: <b id="distance"> xx </b>m </h1>	
 			<div id="testing">Testing-lista: </div>
   		</div><!-- Content -->

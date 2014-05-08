@@ -1,5 +1,6 @@
-var sortedBenches=[];
-
+window.sortedBenches=[];
+window.benchNum=0;
+	
 function initialize() {
 	var mapOptions = {
 	  center: new google.maps.LatLng(59.346630, 18.072056),
@@ -101,13 +102,14 @@ function getDistance(){
 	helper.setPassword(hex_md5("mopub_14"));
 	
 	if (navigator.geolocation){
-    	navigator.geolocation.getCurrentPosition(showPosition);
+    	navigator.geolocation.watchPosition(showPosition);
     }
   	else{
 		alert("Geolocation is not supported by this browser.");
   	}
 
   	function showPosition(position){
+	
 		var my_lat=position.coords.latitude;
 		var my_lng=position.coords.longitude;
 		var my_LatLng = new google.maps.LatLng(my_lat, my_lng);
@@ -134,20 +136,36 @@ function getDistance(){
 			for (var i = 0; i < resp.outputData.length; i++){
 				var bench_LatLng = new google.maps.LatLng(resp.outputData[i].lat_coords, resp.outputData[i].lng_coords);
 				var dist = getDistanceBetween(my_LatLng, bench_LatLng);
-				sortedBenches[i]={"distance":dist, "lat_coords":resp.outputData[i].lat_coords,"lng_coords":resp.outputData[i].lng_coords};
-			
-				
-				console.log(dist);
-				$("#distance").html(dist);
+				window.sortedBenches[i]={"distance":dist, "lat_coords":resp.outputData[i].lat_coords,"lng_coords":resp.outputData[i].lng_coords};
 				rotate(dist);
 				
 			}
-				sortedBenches.sort(function(a, b){
+				window.sortedBenches.sort(function(a, b){
 				    return a.distance - b.distance;
 				});
-				console.log(sortedBenches);
+				console.log(window.sortedBenches);
+				$("#distance").html(window.sortedBenches[window.benchNum].distance.toFixed(2));
 			
 			}
 		);
 	}	
 }
+function newBench(){
+	if(window.benchNum<parseInt(window.sortedBenches.length-1)){
+		window.benchNum=window.benchNum+1;
+		$("#distance").html(window.sortedBenches[window.benchNum].distance.toFixed(2));
+		rotate(window.sortedBenches[window.benchNum].distance);
+	}
+	else{
+		alert("No more benches!");
+	}
+};
+function oldBench(){
+	if(window.benchNum!=0){
+		window.benchNum=window.benchNum-1;
+		$("#distance").html(window.sortedBenches[window.benchNum].distance.toFixed(2));	
+		rotate(window.sortedBenches[window.benchNum].distance);	
+	}else{
+		alert("This is the bench closest to you!")
+	}	
+};
