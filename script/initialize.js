@@ -16,6 +16,7 @@ function addBench(){
 
   if (navigator.geolocation){
   	//console.log(navigator.geolocation);
+	
     navigator.geolocation.getCurrentPosition(showPosition);
     }
   else{
@@ -23,7 +24,7 @@ function addBench(){
   	}
   
   	function showPosition(position){
- 
+ 	
   		var helper = new CBHelper("benchpress", "37ff338f77e39490bad736e64bdd5839", new GenericHelper());
 		helper.setPassword(hex_md5("mopub_14"));
 		
@@ -46,6 +47,7 @@ function addBench(){
 			/*"lat_check_coords" : check_lat,
 			"lng_check_coords" : check_lng*/
 		};
+		
 		search(dataObject);
 		
 		
@@ -81,10 +83,19 @@ function addBench(){
 				
 				helper.searchDocuments(
 					null, "benches", function(resp){
-						for (var i=0, i<resp.outputData.length, i++){
+						var k=0; // En variabel som ökar vid varje "distanserad bänk"
+						for (var i=0; i<resp.outputData.length; i++){
 								var bench = new google.maps.LatLng(resp.outputData[i].lat_coords, resp.outputData[i].lng_coords);
-								console.log(getDistance(user,bench));
-								//Ska jämföra ..... 
+								
+								if (getDistance(user,bench)>30){ //Ska vi köra tio meter?
+									k=k+1;
+								}
+						}
+						if(k == resp.outputData.length){
+							add(dataObject);
+						}
+						else{
+							alert("Bänken har INTE lagts till pga att det finns en redan inlagd bänk i vår databas")
 						}
 					});
 				
