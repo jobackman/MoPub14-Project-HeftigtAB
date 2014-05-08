@@ -1,6 +1,7 @@
 window.sortedBenches=[];
 window.benchNum=0;
-	
+
+
 function initialize() {
 	var mapOptions = {
 	  center: new google.maps.LatLng(59.346630, 18.072056),
@@ -88,6 +89,7 @@ function addBench(){
 };
 
 function rotate(degrees) {
+	
 	$("#arrow").css({ 
 		'-webkit-transform': 'rotate('+degrees+'deg)',
 		'-moz-transform': 'rotate('+degrees+'deg)',
@@ -136,15 +138,22 @@ function getDistance(){
 			for (var i = 0; i < resp.outputData.length; i++){
 				var bench_LatLng = new google.maps.LatLng(resp.outputData[i].lat_coords, resp.outputData[i].lng_coords);
 				var dist = getDistanceBetween(my_LatLng, bench_LatLng);
-				window.sortedBenches[i]={"distance":dist, "lat_coords":resp.outputData[i].lat_coords,"lng_coords":resp.outputData[i].lng_coords};
-				rotate(dist);
+				window.sortedBenches[i]={"distance":dist, "lat_coords":resp.outputData[i].lat_coords,"lng_coords":resp.outputData[i].lng_coords, "my_LatLng":my_LatLng, "bench_LatLng":bench_LatLng};
+				
+				
+				
+				console.log(heading);
 				
 			}
 				window.sortedBenches.sort(function(a, b){
 				    return a.distance - b.distance;
 				});
 				console.log(window.sortedBenches);
+				var heading = google.maps.geometry.spherical.computeHeading(window.sortedBenches[window.benchNum].bench_LatLng,
+				      window.sortedBenches[window.benchNum].my_LatLng);
+			
 				$("#distance").html(window.sortedBenches[window.benchNum].distance.toFixed(2));
+				rotate(heading);
 			
 			}
 		);
@@ -152,9 +161,12 @@ function getDistance(){
 }
 function newBench(){
 	if(window.benchNum<parseInt(window.sortedBenches.length-1)){
+		
 		window.benchNum=window.benchNum+1;
+		var heading = google.maps.geometry.spherical.computeHeading(window.sortedBenches[window.benchNum].bench_LatLng,
+		      window.sortedBenches[window.benchNum].my_LatLng);
 		$("#distance").html(window.sortedBenches[window.benchNum].distance.toFixed(2));
-		rotate(window.sortedBenches[window.benchNum].distance);
+		rotate(heading);
 	}
 	else{
 		alert("No more benches!");
@@ -163,8 +175,9 @@ function newBench(){
 function oldBench(){
 	if(window.benchNum!=0){
 		window.benchNum=window.benchNum-1;
+		var heading = google.maps.geometry.spherical.computeHeading(window.sortedBenches[window.benchNum].bench_LatLng,window.sortedBenches[window.benchNum].my_LatLng);
 		$("#distance").html(window.sortedBenches[window.benchNum].distance.toFixed(2));	
-		rotate(window.sortedBenches[window.benchNum].distance);	
+		rotate(heading);	
 	}else{
 		alert("This is the bench closest to you!")
 	}	
