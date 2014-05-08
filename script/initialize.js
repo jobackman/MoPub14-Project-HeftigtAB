@@ -30,40 +30,16 @@ function addBench(){
 		
 
 		
-		/*var read_latitude = position.coords.latitude.toString();
-		var check_latitude = read_latitude.split(".");
-		var check_latitude_decimals = check_latitude[1].substring(0,4);
-		var check_lat = check_latitude[0]+"."+check_latitude_decimals;
-		
-		var read_longitude = position.coords.longitude.toString();
-		var check_longitude = read_longitude.split(".");
-		var check_longitude_decimals = check_longitude[1].substring(0,4);
-		var check_lng = check_longitude[0]+"."+check_longitude_decimals;
-		//alert(check_lng); */
-		
 		var dataObject = {
 			"lat_coords" : position.coords.latitude,
-			"lng_coords" : position.coords.longitude,
-			/*"lat_check_coords" : check_lat,
-			"lng_check_coords" : check_lng*/
+			"lng_coords" : position.coords.longitude
 		};
 		
 		search(dataObject);
 		
 		
 		function search(dataObject){
-			//,"lng_check_coords" : dataObject.lat_check_coords}
-		/*	helper.searchDocuments(
-				//Ska även kunna jämföra longitude
-				{"lat_check_coords" : dataObject.lat_check_coords}, "benches", function(resp){
-					//console.log(resp.outputData[0].lat_check_coords);
-					if(resp.callStatus && resp.outputData==0){
-						add(dataObject);
-					}else{
-						alert("Finns redan en bank har.");
-					};	
-				}
-				); */
+
 				var user = new google.maps.LatLng(dataObject.lat_coords, dataObject.lng_coords);
 				var rad = function(x) {
 				  return x * Math.PI / 180;
