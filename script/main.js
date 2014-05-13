@@ -104,6 +104,7 @@ function getDistance(){
 	helper.setPassword(hex_md5("mopub_14"));
 	
 	if (navigator.geolocation){
+
     	navigator.geolocation.watchPosition(showPosition);
     }
   	else{
@@ -111,6 +112,15 @@ function getDistance(){
   	}
 
   	function showPosition(position){
+	if (window.DeviceOrientationEvent){
+	window.addEventListener('deviceorientation', function(eventData) {
+	  var dir = eventData.alpha
+	$('#testing').text(dir);
+	rotate(dir);
+	}, false);
+	}
+
+	
 	
 		var my_lat=position.coords.latitude;
 		var my_lng=position.coords.longitude;
@@ -166,6 +176,7 @@ function newBench(){
 		var heading = google.maps.geometry.spherical.computeHeading(window.sortedBenches[window.benchNum].bench_LatLng,
 		      window.sortedBenches[window.benchNum].my_LatLng);
 		$("#distance").html(window.sortedBenches[window.benchNum].distance.toFixed(2));
+		alert(heading);
 		rotate(heading);
 	}
 	else{
@@ -177,7 +188,8 @@ function oldBench(){
 		window.benchNum=window.benchNum-1;
 		var heading = google.maps.geometry.spherical.computeHeading(window.sortedBenches[window.benchNum].bench_LatLng,window.sortedBenches[window.benchNum].my_LatLng);
 		$("#distance").html(window.sortedBenches[window.benchNum].distance.toFixed(2));	
-		rotate(heading);	
+		rotate(heading);
+		alert(heading);	
 	}else{
 		alert("This is the bench closest to you!")
 	}	
